@@ -2,15 +2,14 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtracPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 module.exports = {
   entry: "./src/index.js",
-  mode:"production",
+  mode: 'development',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
-    clean:true
+    publicPath: "/",
   },
   resolve:{
     extensions: ['.js','.jsx'],
@@ -55,8 +54,12 @@ module.exports = {
       filename: '[name].css'
     })
   ],
-  optimization: {
-    minimize: true
-  }  
-  
+  devServer: {
+    static: {
+    directory: path.join(__dirname, 'dist'),
+    },
+    compress: true,
+    port: 3060,
+    open: true,
+  }
 }
